@@ -1,18 +1,19 @@
 const express = require('express');
-const morgan = require('morgan');
 const app = express();
+const morgan = require('morgan');
 
 //settings
-app.set('port',3000);
-
+app.set('port',process.env.PORT || 3000);
 
 // middlewares
-app.use(morgan('combined'));
+app.use(morgan('dev'));
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
+// routes
+app.use(require('./routes/index'))
 // starting the server
 
-app.listen(app.get, () => {
+app.listen(app.get('port'), () => {
     console.log(`Server on post ${app.get('port')}`);
 });
